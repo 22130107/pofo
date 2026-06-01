@@ -1,8 +1,9 @@
 "use client";
 
 import { motion, AnimatePresence } from "motion/react";
-import { List, X } from "@phosphor-icons/react";
+import { List, X, Sun, Moon } from "@phosphor-icons/react";
 import { useState, useEffect, useRef } from "react";
+import { useTheme } from "./ThemeProvider";
 
 const navLinks = [
   { href: "#about", label: "About" },
@@ -53,6 +54,7 @@ function MagneticLink({ href, label }: { href: string; label: string }) {
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { theme, toggle } = useTheme();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 80);
@@ -73,8 +75,7 @@ export default function Navbar() {
           href="#"
           className="text-lg font-bold tracking-tight hover:opacity-70 transition-opacity"
         >
-          <span className="text-accent">JD</span>
-          <span className="text-muted">.</span>
+          <span className="text-accent">.HYUN</span>
         </a>
 
         <ul className="hidden md:flex items-center gap-8">
@@ -83,6 +84,15 @@ export default function Navbar() {
               <MagneticLink href={link.href} label={link.label} />
             </li>
           ))}
+          <li>
+            <button
+              onClick={toggle}
+              className="flex h-9 w-9 items-center justify-center rounded-full text-muted hover:text-foreground hover:bg-surface-hover transition-all"
+              aria-label="Toggle theme"
+            >
+              {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
+            </button>
+          </li>
           <li>
             <a
               href="#contact"

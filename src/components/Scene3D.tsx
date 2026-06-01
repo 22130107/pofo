@@ -1,19 +1,27 @@
 "use client";
 
-"use client";
-
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Float, MeshDistortMaterial } from "@react-three/drei";
 import * as THREE from "three";
 
+function getAccentColor(): string {
+  if (typeof window === "undefined") return "#f472b6";
+  return getComputedStyle(document.documentElement)
+    .getPropertyValue("--accent")
+    .trim() || "#f472b6";
+}
+
 function Shape() {
   const meshRef = useRef<THREE.Mesh>(null);
+  const [color] = useState(getAccentColor);
 
   useFrame(({ pointer }) => {
     if (!meshRef.current) return;
-    meshRef.current.rotation.x += (pointer.y * 0.05 - meshRef.current.rotation.x) * 0.05;
-    meshRef.current.rotation.y += (pointer.x * 0.05 - meshRef.current.rotation.y) * 0.05;
+    meshRef.current.rotation.x +=
+      (pointer.y * 0.05 - meshRef.current.rotation.x) * 0.05;
+    meshRef.current.rotation.y +=
+      (pointer.x * 0.05 - meshRef.current.rotation.y) * 0.05;
   });
 
   return (
@@ -21,8 +29,8 @@ function Shape() {
       <mesh ref={meshRef} scale={1.8}>
         <icosahedronGeometry args={[1, 1]} />
         <MeshDistortMaterial
-          color="#2563eb"
-          emissive="#2563eb"
+          color={color}
+          emissive={color}
           emissiveIntensity={0.15}
           roughness={0.2}
           metalness={0.8}
@@ -36,6 +44,7 @@ function Shape() {
 }
 
 function Dots() {
+  const [color] = useState(getAccentColor);
   const count = 200;
   const positions = new Float32Array(count * 3);
   for (let i = 0; i < count; i++) {
@@ -54,7 +63,7 @@ function Dots() {
       </bufferGeometry>
       <pointsMaterial
         size={0.02}
-        color="#2563eb"
+        color={color}
         transparent
         opacity={0.4}
         sizeAttenuation
