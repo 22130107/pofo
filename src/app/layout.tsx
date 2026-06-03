@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import SmoothScroll from "@/components/SmoothScroll";
 import BackgroundTrail from "@/components/BackgroundTrail";
-import AnimeBackground from "@/components/AnimeBackground";
+import AnimeMangaBackground from "@/components/AnimeMangaBackground";
+
 import ThemeProvider from "@/components/ThemeProvider";
 import "./globals.css";
 
@@ -62,7 +63,8 @@ export default function RootLayout({
             `,
           }}
         />
-        <AnimeBackground />
+        <AnimeMangaBackground />
+
         <div className="noise-overlay" />
         <BackgroundTrail />
         <ThemeProvider>
