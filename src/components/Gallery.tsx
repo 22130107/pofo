@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import { motion } from "motion/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
@@ -161,7 +162,13 @@ export default function Gallery() {
       id="gallery"
       className="py-24 md:py-36 bg-surface/20 border-b border-border overflow-hidden relative"
     >
-      <div className="container-wide px-6 mb-16 relative z-10">
+      <motion.div
+        className="container-wide px-6 mb-16 relative z-10"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] as const }}
+      >
         <div className="max-w-md">
           <div className="gallery-header-item inline-flex items-center gap-2 px-3 py-1 rounded-full border border-accent/20 bg-accent/5 text-accent mb-4">
             <Camera size={14} />
@@ -174,7 +181,7 @@ export default function Gallery() {
             A small glimpse into my life, interests, and inspirations captured along the way.
           </p>
         </div>
-      </div>
+      </motion.div>
 
       {/* Rows Container */}
       <div className="flex flex-col gap-10 md:gap-16 relative">
@@ -188,24 +195,26 @@ export default function Gallery() {
               <div key={photo.title} className="gallery-card flex-shrink-0">
                 <div
                   style={{ transform: `rotate(${photo.rotate}deg)` }}
-                  className="group w-64 md:w-80 rounded-xl bg-surface border border-border p-4 shadow-md hover:shadow-xl hover:-translate-y-2 transition-all duration-300 relative overflow-hidden cursor-pointer"
+                  className="group w-64 md:w-80 rounded-xl bg-black/[0.04] dark:bg-white/[0.04] p-[1px] shadow-md hover:shadow-xl transition-all duration-500 cursor-pointer"
                 >
-                  <div className="relative aspect-[4/5] rounded-lg overflow-hidden border border-border bg-muted">
-                    <Image
-                      src={photo.url}
-                      alt={photo.title}
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      sizes="(max-width: 768px) 250px, 320px"
-                    />
-                  </div>
-                  <div className="pt-4 pb-2 px-1">
-                    <h3 className="font-semibold text-sm md:text-base mb-1 text-foreground">
-                      {photo.title}
-                    </h3>
-                    <p className="text-xs text-muted font-mono leading-none">
-                      {photo.caption}
-                    </p>
+                  <div className="rounded-[calc(0.75rem-1px)] bg-surface p-4 hover:-translate-y-1 transition-transform duration-500 shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)]">
+                    <div className="relative aspect-[4/5] rounded-lg overflow-hidden bg-muted">
+                      <Image
+                        src={photo.url}
+                        alt={photo.title}
+                        fill
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                        sizes="(max-width: 768px) 250px, 320px"
+                      />
+                    </div>
+                    <div className="pt-4 pb-2 px-1">
+                      <h3 className="font-semibold text-sm md:text-base mb-1 text-foreground">
+                        {photo.title}
+                      </h3>
+                      <p className="text-xs text-muted font-mono leading-none">
+                        {photo.caption}
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -223,24 +232,26 @@ export default function Gallery() {
               <div key={photo.title} className="gallery-card flex-shrink-0">
                 <div
                   style={{ transform: `rotate(${photo.rotate}deg)` }}
-                  className="group w-64 md:w-80 rounded-xl bg-surface border border-border p-4 shadow-md hover:shadow-xl hover:-translate-y-2 transition-all duration-300 relative overflow-hidden cursor-pointer"
+                  className="group w-64 md:w-80 rounded-xl bg-black/[0.04] dark:bg-white/[0.04] p-[1px] shadow-md hover:shadow-xl transition-all duration-500 cursor-pointer"
                 >
-                  <div className="relative aspect-[4/5] rounded-lg overflow-hidden border border-border bg-muted">
-                    <Image
-                      src={photo.url}
-                      alt={photo.title}
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      sizes="(max-width: 768px) 250px, 320px"
-                    />
-                  </div>
-                  <div className="pt-4 pb-2 px-1">
-                    <h3 className="font-semibold text-sm md:text-base mb-1 text-foreground">
-                      {photo.title}
-                    </h3>
-                    <p className="text-xs text-muted font-mono leading-none">
-                      {photo.caption}
-                    </p>
+                  <div className="rounded-[calc(0.75rem-1px)] bg-surface p-4 hover:-translate-y-1 transition-transform duration-500 shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)]">
+                    <div className="relative aspect-[4/5] rounded-lg overflow-hidden bg-muted">
+                      <Image
+                        src={photo.url}
+                        alt={photo.title}
+                        fill
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                        sizes="(max-width: 768px) 250px, 320px"
+                      />
+                    </div>
+                    <div className="pt-4 pb-2 px-1">
+                      <h3 className="font-semibold text-sm md:text-base mb-1 text-foreground">
+                        {photo.title}
+                      </h3>
+                      <p className="text-xs text-muted font-mono leading-none">
+                        {photo.caption}
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>

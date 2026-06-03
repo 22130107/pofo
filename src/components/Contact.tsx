@@ -14,7 +14,8 @@ export default function Contact() {
   return (
     <section id="contact" className="section-padding">
       <div className="container-wide">
-        <div className="rounded-3xl border border-border bg-surface p-8 md:p-16 relative overflow-hidden">
+        <div className="rounded-[2rem] bg-black/[0.03] dark:bg-white/[0.03] p-[1px]">
+        <div className="rounded-[calc(2rem-1px)] bg-surface p-8 md:p-16 relative overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)]">
           <div className="absolute top-0 right-0 w-96 h-96 bg-accent/[0.03] rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none" />
           <div className="absolute bottom-0 left-0 w-64 h-64 bg-accent/[0.02] rounded-full translate-y-1/2 -translate-x-1/2 pointer-events-none" />
 
@@ -25,10 +26,7 @@ export default function Contact() {
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.7 }}
             >
-              <span className="text-xs uppercase tracking-[0.25em] text-muted font-mono">
-                Contact
-              </span>
-              <h2 className="text-3xl md:text-5xl font-bold tracking-tight mt-5 mb-6 leading-[1.05]">
+              <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-6 leading-[1.05]">
                 Let&apos;s build something{" "}
                 <span className="gradient-text">amazing</span> together
               </h2>
@@ -104,6 +102,7 @@ export default function Contact() {
               </button>
             </motion.form>
           </div>
+        </div>
         </div>
       </div>
     </section>

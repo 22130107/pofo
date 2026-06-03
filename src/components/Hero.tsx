@@ -148,16 +148,16 @@ export default function Hero() {
           >
             <a
               href="#projects"
-              className="group inline-flex h-13 items-center gap-3 rounded-full bg-foreground px-8 text-sm font-medium text-background hover:opacity-90 transition-all active:scale-[0.97]"
+              className="group relative inline-flex h-13 items-center gap-3 rounded-full bg-foreground pl-8 pr-[3px] text-sm font-medium text-background transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.97]"
             >
-              View My Work
-              <span className="flex items-center justify-center w-6 h-6 rounded-full bg-background/20">
-                <ArrowRight size={14} className="transition-transform group-hover:translate-x-0.5" />
+              <span>View My Work</span>
+              <span className="flex items-center justify-center w-[calc(3.25rem-4px)] h-[calc(3.25rem-4px)] rounded-full bg-background/15 transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:bg-accent">
+                <ArrowRight size={14} className="transition-transform duration-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </span>
             </a>
             <a
               href="#contact"
-              className="inline-flex h-13 items-center rounded-full border border-border px-8 text-sm font-medium hover:bg-surface-hover transition-all active:scale-[0.97]"
+              className="inline-flex h-13 items-center rounded-full border border-border px-8 text-sm font-medium hover:bg-surface-hover transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.97]"
             >
               Get in Touch
             </a>

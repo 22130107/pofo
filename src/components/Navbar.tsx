@@ -106,50 +106,77 @@ export default function Navbar() {
 
         <button
           onClick={() => setOpen(!open)}
-          className={`md:hidden p-2 rounded-full transition-all ${
+          className={`md:hidden relative w-9 h-9 rounded-full transition-all flex items-center justify-center ${
             scrolled ? "hover:bg-surface-hover" : ""
           }`}
           aria-label="Toggle menu"
         >
-          {open ? <X size={20} /> : <List size={20} />}
+          <span className="relative flex flex-col items-center justify-center w-5 h-5">
+            <motion.span
+              className="absolute block h-[1.5px] w-5 rounded-full bg-current"
+              animate={open ? { rotate: 45, y: 0 } : { rotate: 0, y: -4 }}
+              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            />
+            <motion.span
+              className="absolute block h-[1.5px] w-5 rounded-full bg-current"
+              animate={open ? { opacity: 0, x: -8 } : { opacity: 1, x: 0 }}
+              transition={{ duration: 0.2 }}
+            />
+            <motion.span
+              className="absolute block h-[1.5px] w-5 rounded-full bg-current"
+              animate={open ? { rotate: -45, y: 0 } : { rotate: 0, y: 4 }}
+              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            />
+          </span>
         </button>
       </nav>
 
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ opacity: 0, y: -12, scale: 0.96 }}
+            initial={{ opacity: 0, y: -16, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -12, scale: 0.96 }}
-            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] as const }}
-            className="md:hidden mx-auto mt-2 max-w-sm rounded-2xl border border-border bg-background/95 backdrop-blur-xl shadow-lg overflow-hidden"
+            exit={{ opacity: 0, y: -16, scale: 0.95 }}
+            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] as const }}
+            className="md:hidden mx-auto mt-2 max-w-sm rounded-[1.75rem] border border-border/60 bg-background/80 backdrop-blur-3xl shadow-xl overflow-hidden"
           >
-            <ul className="flex flex-col px-4 py-4 gap-1">
-              {navLinks.map((link, i) => (
-                <motion.li
-                  key={link.href}
-                  initial={{ opacity: 0, x: -16 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.05 }}
-                >
-                  <a
-                    href={link.href}
-                    onClick={() => setOpen(false)}
-                    className="block rounded-lg px-4 py-3 text-base font-medium hover:bg-surface-hover transition-colors"
+            <ul className="flex flex-col px-5 py-6 gap-1">
+              {(navLinks as Array<{ href: string; label: string }>).map(
+                (link, i) => (
+                  <motion.li
+                    key={link.href}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{
+                      delay: 0.15 + i * 0.06,
+                      duration: 0.5,
+                      ease: [0.16, 1, 0.3, 1] as const,
+                    }}
                   >
-                    {link.label}
-                  </a>
-                </motion.li>
-              ))}
+                    <a
+                      href={link.href}
+                      onClick={() => setOpen(false)}
+                      className="block rounded-xl px-4 py-3.5 text-base font-medium hover:bg-surface-hover transition-all duration-300"
+                    >
+                      {link.label}
+                    </a>
+                  </motion.li>
+                )
+              )}
               <motion.li
-                initial={{ opacity: 0, x: -16 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: navLinks.length * 0.05 }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  delay: 0.15 + navLinks.length * 0.06,
+                  duration: 0.5,
+                  ease: [0.16, 1, 0.3, 1] as const,
+                }}
+                className="mt-3"
               >
                 <a
                   href="#contact"
                   onClick={() => setOpen(false)}
-                  className="block rounded-lg px-4 py-3 text-base font-medium bg-foreground text-background text-center mt-2"
+                  className="block rounded-xl px-4 py-3.5 text-base font-medium bg-foreground text-background text-center"
                 >
                   Get in Touch
                 </a>

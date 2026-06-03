@@ -95,10 +95,7 @@ export default function Skills() {
         viewport={{ once: true, amount: 0.3 }}
         transition={{ duration: 0.7 }}
       >
-        <span className="text-xs uppercase tracking-[0.25em] text-muted font-mono">
-          Skills & Expertise
-        </span>
-        <h2 className="text-3xl md:text-5xl font-bold tracking-tight mt-4">
+        <h2 className="text-3xl md:text-5xl font-bold tracking-tight">
           My tech stack
         </h2>
       </motion.div>
@@ -108,18 +105,20 @@ export default function Skills() {
           {skillCategories.map((cat, i) => (
             <motion.div
               key={cat.title}
-              className="group rounded-2xl border border-border bg-surface p-6 md:p-8 card-hover relative overflow-hidden"
+              className="group rounded-[1.75rem] bg-black/[0.03] dark:bg-white/[0.03] p-[1px]"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.15, duration: 0.6 }}
             >
-              <div className="absolute top-0 right-0 w-32 h-32 bg-accent/5 rounded-full -translate-y-1/2 translate-x-1/2 group-hover:scale-150 transition-transform duration-700" />
-              <h3 className="text-lg font-semibold mb-7 relative">{cat.title}</h3>
-              <div className="space-y-5 relative">
-                {cat.skills.map((skill) => (
-                  <SkillBar key={skill.name} name={skill.name} level={skill.level} delay={i * 0.15} />
-                ))}
+              <div className="rounded-[calc(1.75rem-1px)] bg-surface p-6 md:p-8 h-full relative overflow-hidden card-hover shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)]">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-accent/5 rounded-full -translate-y-1/2 translate-x-1/2 group-hover:scale-150 transition-transform duration-700" />
+                <h3 className="text-lg font-semibold mb-7 relative">{cat.title}</h3>
+                <div className="space-y-5 relative">
+                  {cat.skills.map((skill) => (
+                    <SkillBar key={skill.name} name={skill.name} level={skill.level} delay={i * 0.15} />
+                  ))}
+                </div>
               </div>
             </motion.div>
           ))}

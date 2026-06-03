@@ -58,8 +58,8 @@ export default function About() {
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] as const }}
           >
-            <span className="text-xs uppercase tracking-[0.25em] text-muted font-mono">
-              About Me
+            <span className="text-[10px] uppercase tracking-[0.25em] text-muted font-mono">
+              About
             </span>
             <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight mt-5 mb-7 leading-[1.05]">
               Turning complex problems into{" "}
@@ -87,19 +87,21 @@ export default function About() {
             {highlights.map((item, i) => (
               <motion.div
                 key={item.title}
-                className="group rounded-2xl border border-border bg-surface p-5 md:p-6 card-hover relative overflow-hidden"
+                className="group rounded-[1.75rem] bg-black/[0.03] dark:bg-white/[0.03] p-[1px]"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1, duration: 0.5 }}
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-accent/0 via-accent/0 to-accent/[0.02] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <div className="relative">
-                  <div className="w-11 h-11 rounded-xl bg-accent-soft flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                    <item.icon size={22} className="text-accent" />
+                <div className="rounded-[calc(1.75rem-1px)] bg-surface p-5 md:p-6 h-full relative overflow-hidden card-hover shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)]">
+                  <div className="absolute inset-0 bg-gradient-to-br from-accent/0 via-accent/0 to-accent/[0.02] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <div className="relative">
+                    <div className="w-11 h-11 rounded-xl bg-accent-soft flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                      <item.icon size={22} className="text-accent" />
+                    </div>
+                    <h3 className="font-semibold text-sm mb-1">{item.title}</h3>
+                    <p className="text-xs text-muted leading-relaxed">{item.desc}</p>
                   </div>
-                  <h3 className="font-semibold text-sm mb-1">{item.title}</h3>
-                  <p className="text-xs text-muted leading-relaxed">{item.desc}</p>
                 </div>
               </motion.div>
             ))}
@@ -107,20 +109,24 @@ export default function About() {
         </div>
 
         <motion.div
-          className="grid grid-cols-2 md:grid-cols-4 gap-px rounded-2xl overflow-hidden mt-20 border border-border bg-border"
+          className="rounded-[1.75rem] bg-black/[0.03] dark:bg-white/[0.03] p-[1px] mt-20"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.7, delay: 0.2 }}
         >
-          {stats.map((stat) => (
-            <div key={stat.label} className="bg-surface p-8 md:p-10 text-center">
-              <div className="text-3xl md:text-4xl font-bold tracking-tight mb-2">
-                <AnimatedCounter value={stat.value} suffix={stat.suffix} />
-              </div>
-              <p className="text-sm text-muted">{stat.label}</p>
+          <div className="rounded-[calc(1.75rem-1px)] bg-surface overflow-hidden">
+            <div className="grid grid-cols-2 md:grid-cols-4">
+              {stats.map((stat) => (
+                <div key={stat.label} className="p-8 md:p-10 text-center border-r border-b border-border last:border-r-0 md:last:border-r md:border-b-0">
+                  <div className="text-3xl md:text-4xl font-bold tracking-tight mb-2">
+                    <AnimatedCounter value={stat.value} suffix={stat.suffix} />
+                  </div>
+                  <p className="text-sm text-muted">{stat.label}</p>
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
         </motion.div>
       </div>
     </section>
