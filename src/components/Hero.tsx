@@ -3,7 +3,6 @@
 import { useEffect, useRef } from "react";
 import { motion } from "motion/react";
 import { ArrowRight, At, GithubLogo, LinkedinLogo } from "@phosphor-icons/react";
-import AnimeBackground from "@/components/AnimeBackground";
 
 const easeOutQuart = [0.16, 1, 0.3, 1] as const;
 
@@ -54,7 +53,6 @@ export default function Hero() {
       id="hero"
       className="relative min-h-[100dvh] flex items-center justify-center overflow-hidden"
     >
-      <AnimeBackground />
       <div
         className="absolute inset-0 opacity-[0.04] dark:opacity-[0.06]"
         style={{

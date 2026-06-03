@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import SmoothScroll from "@/components/SmoothScroll";
 import BackgroundTrail from "@/components/BackgroundTrail";
+import AnimeBackground from "@/components/AnimeBackground";
 import ThemeProvider from "@/components/ThemeProvider";
 import "./globals.css";
 
@@ -53,7 +54,7 @@ export default function RootLayout({
               (function() {
                 try {
                   var t = localStorage.getItem('theme');
-                  if (t !== 'light') {
+                  if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
                     document.documentElement.classList.add('dark');
                   }
                 } catch(e) {}
@@ -61,6 +62,7 @@ export default function RootLayout({
             `,
           }}
         />
+        <AnimeBackground />
         <div className="noise-overlay" />
         <BackgroundTrail />
         <ThemeProvider>

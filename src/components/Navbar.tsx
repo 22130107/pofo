@@ -54,7 +54,10 @@ function MagneticLink({ href, label }: { href: string; label: string }) {
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const { theme, toggle } = useTheme();
+
+  useEffect(() => { setMounted(true); }, []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 80);
@@ -89,8 +92,9 @@ export default function Navbar() {
               onClick={toggle}
               className="flex h-9 w-9 items-center justify-center rounded-full text-muted hover:text-foreground hover:bg-surface-hover transition-all"
               aria-label="Toggle theme"
+              suppressHydrationWarning
             >
-              {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
+              {mounted ? (theme === "dark" ? <Sun size={16} /> : <Moon size={16} />) : <span className="h-4 w-4" />}
             </button>
           </li>
           <li>

@@ -136,7 +136,7 @@ export default function AnimeBackground() {
 
       {/* 3. Floating Micro-particles */}
       <div className="absolute inset-0 z-2">
-        {particles.map((p) => (
+        {mounted && particles.map((p) => (
           <motion.div
             key={p.id}
             initial={{ x: `${p.x}%`, y: "110%", opacity: 0 }}

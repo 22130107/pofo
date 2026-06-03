@@ -8,7 +8,7 @@ import Image from "next/image";
 import { Camera } from "@phosphor-icons/react";
 import { useGSAP } from "@gsap/react";
 
-gsap.registerPlugin(ScrollTrigger, useGSAP);
+gsap.registerPlugin(ScrollTrigger);
 
 const row1Photos = [
   {
