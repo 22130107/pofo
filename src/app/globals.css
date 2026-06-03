@@ -15,42 +15,28 @@
 }
 
 :root {
-  --background: #fafafa;
-  --foreground: #0a0a0a;
-  --accent: #f472b6;
-  --accent-soft: #fdf2f8;
-  --accent-alt: #38bdf8;
-  --surface: #ffffff;
-  --surface-hover: #fdf2f8;
-  --border: #f1d5e0;
-  --muted: #737373;
-  --radius: 0.75rem;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #fafafa;
-    --accent: #f9a8d4;
-    --accent-soft: #2d1b2e;
-    --accent-alt: #7dd3fc;
-    --surface: #18181b;
-    --surface-hover: #27272a;
-    --border: #27272a;
-    --muted: #a1a1aa;
-  }
-}
-
-html.dark {
-  --background: #0a0a0a;
+  --background: #09090b;
   --foreground: #fafafa;
   --accent: #f9a8d4;
   --accent-soft: #2d1b2e;
   --accent-alt: #7dd3fc;
-  --surface: #18181b;
-  --surface-hover: #27272a;
-  --border: #27272a;
+  --surface: #121214;
+  --surface-hover: #1c1c1f;
+  --border: #222226;
   --muted: #a1a1aa;
+  --radius: 0.75rem;
+}
+
+html:not(.dark) {
+  --background: #f7f5f6;
+  --foreground: #0a0a0a;
+  --accent: #f472b6;
+  --accent-soft: #fdf2f8;
+  --accent-alt: #38bdf8;
+  --surface: #fcfbfb;
+  --surface-hover: #fdf2f8;
+  --border: #edd5e0;
+  --muted: #737373;
 }
 
 html.lenis {
@@ -74,7 +60,12 @@ html.lenis {
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
+  background-image: 
+    radial-gradient(circle at 10% 20%, color-mix(in srgb, var(--accent) 5%, transparent) 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, color-mix(in srgb, var(--accent-alt) 5%, transparent) 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--accent) 2%, transparent) 0%, transparent 60%);
+  background-attachment: fixed;
   color: var(--foreground);
   font-family: var(--font-sans), system-ui, sans-serif;
 }
@@ -217,4 +208,23 @@ body {
 .text-reveal-line > span {
   display: block;
   transform: translateY(100%);
+}
+
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.grid-3d-floor {
+  background-image: 
+    linear-gradient(to right, color-mix(in srgb, var(--border) 18%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--border) 18%, transparent) 1px, transparent 1px);
+  background-size: 45px 45px;
+  background-position: center top;
+  transform: rotateX(75deg);
+  transform-origin: center top;
+}
+
+.glow-orb {
+  filter: blur(120px);
+  will-change: transform;
 }

@@ -53,7 +53,7 @@ export default function RootLayout({
               (function() {
                 try {
                   var t = localStorage.getItem('theme');
-                  if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+                  if (t !== 'light') {
                     document.documentElement.classList.add('dark');
                   }
                 } catch(e) {}

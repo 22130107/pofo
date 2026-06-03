@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 
+const Scene3D = dynamic(() => import("@/components/Scene3D"), { ssr: false });
 const Hero = dynamic(() => import("@/components/Hero"), { ssr: false });
 const About = dynamic(() => import("@/components/About"), { ssr: false });
 const Skills = dynamic(() => import("@/components/Skills"), { ssr: false });
@@ -16,7 +17,10 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <main>
+      <div className="fixed inset-0 z-0 pointer-events-none w-full h-[100vh]">
+        <Scene3D />
+      </div>
+      <main className="relative z-10">
         <Hero />
         <About />
         <Skills />
@@ -29,3 +33,4 @@ export default function Home() {
     </>
   );
 }
+

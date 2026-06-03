@@ -3,11 +3,9 @@
 import { useEffect, useRef } from "react";
 import { motion } from "motion/react";
 import { ArrowRight, At, GithubLogo, LinkedinLogo } from "@phosphor-icons/react";
-import dynamic from "next/dynamic";
+import AnimeBackground from "@/components/AnimeBackground";
 
 const easeOutQuart = [0.16, 1, 0.3, 1] as const;
-
-const Scene3D = dynamic(() => import("@/components/Scene3D"), { ssr: false });
 
 const containerVariants = {
   hidden: {},
@@ -56,6 +54,7 @@ export default function Hero() {
       id="hero"
       className="relative min-h-[100dvh] flex items-center justify-center overflow-hidden"
     >
+      <AnimeBackground />
       <div
         className="absolute inset-0 opacity-[0.04] dark:opacity-[0.06]"
         style={{
@@ -88,8 +87,6 @@ export default function Hero() {
           />
         ))}
       </div>
-
-      <Scene3D />
 
       <div
         className="absolute inset-0 opacity-[0.03] pointer-events-none"

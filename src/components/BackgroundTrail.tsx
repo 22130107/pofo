@@ -30,7 +30,7 @@ export default function BackgroundTrail() {
 
     const mouse = { x: -200, y: -200 };
     const velocity = { x: 0, y: 0 };
-    let prevMouse = { x: -200, y: -200 };
+    const prevMouse = { x: -200, y: -200 };
 
     const handleMouseMove = (e: MouseEvent) => {
       mouse.x = e.clientX;

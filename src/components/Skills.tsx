@@ -87,7 +87,7 @@ function TechMarquee() {
 
 export default function Skills() {
   return (
-    <section id="skills" className="section-padding bg-surface/50 relative overflow-hidden">
+    <section id="skills" className="section-padding bg-transparent relative overflow-hidden">
       <motion.div
         className="text-center mb-16"
         initial={{ opacity: 0, y: 30 }}

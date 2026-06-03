@@ -1,12 +1,13 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import { Camera } from "@phosphor-icons/react";
+import { useGSAP } from "@gsap/react";
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 const row1Photos = [
   {
@@ -79,45 +80,80 @@ export default function Gallery() {
   const row1Ref = useRef<HTMLDivElement>(null);
   const row2Ref = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (!containerRef.current || !row1Ref.current || !row2Ref.current) return;
+  useGSAP(() => {
+    if (!row1Ref.current || !row2Ref.current) return;
 
-    const ctx = gsap.context(() => {
-      // Row 1 scrolls left as page scrolls down
-      gsap.fromTo(
-        row1Ref.current,
-        { x: "5%" },
-        {
-          x: "-20%",
-          ease: "none",
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: 1,
-          },
-        }
-      );
+    // Header elements entrance reveal
+    gsap.fromTo(
+      ".gallery-header-item",
+      { y: 30, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top 95%",
+          once: true,
+        },
+      }
+    );
 
-      // Row 2 scrolls right as page scrolls down
-      gsap.fromTo(
-        row2Ref.current,
-        { x: "-20%" },
-        {
-          x: "5%",
-          ease: "none",
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: 1,
-          },
-        }
-      );
-    }, containerRef);
+    // Cards entrance animation (staggered fade & slide up)
+    gsap.fromTo(
+      ".gallery-card",
+      { y: 50, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        stagger: 0.05,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top 95%",
+          once: true,
+        },
+      }
+    );
 
-    return () => ctx.revert();
-  }, []);
+    // Row 1 scrolls left as page scrolls down
+    gsap.fromTo(
+      row1Ref.current,
+      { x: "5%" },
+      {
+        x: "-20%",
+        ease: "none",
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 1,
+        },
+      }
+    );
+
+    // Row 2 scrolls right as page scrolls down
+    gsap.fromTo(
+      row2Ref.current,
+      { x: "-20%" },
+      {
+        x: "5%",
+        ease: "none",
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 1,
+        },
+      }
+    );
+
+    // Force ScrollTrigger to recalculate positions on mount
+    ScrollTrigger.refresh();
+  }, { scope: containerRef });
 
   return (
     <section
@@ -127,14 +163,14 @@ export default function Gallery() {
     >
       <div className="container-wide px-6 mb-16 relative z-10">
         <div className="max-w-md">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-accent/20 bg-accent/5 text-accent mb-4">
+          <div className="gallery-header-item inline-flex items-center gap-2 px-3 py-1 rounded-full border border-accent/20 bg-accent/5 text-accent mb-4">
             <Camera size={14} />
             <span className="font-mono text-[10px] uppercase tracking-wider">Visual Journal</span>
           </div>
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight">
+          <h2 className="gallery-header-item text-3xl md:text-5xl font-bold tracking-tight">
             Behind the screen
           </h2>
-          <p className="text-muted mt-3 text-sm md:text-base leading-relaxed">
+          <p className="gallery-header-item text-muted mt-3 text-sm md:text-base leading-relaxed">
             A small glimpse into my life, interests, and inspirations captured along the way.
           </p>
         </div>
@@ -148,28 +184,29 @@ export default function Gallery() {
             ref={row1Ref}
             className="flex gap-6 md:gap-10 px-8 w-max will-change-transform"
           >
-            {row1Photos.map((photo, i) => (
-              <div
-                key={photo.title}
-                style={{ transform: `rotate(${photo.rotate}deg)` }}
-                className="group w-64 md:w-80 rounded-xl bg-surface border border-border p-4 shadow-md hover:shadow-xl hover:-translate-y-2 transition-all duration-300 relative overflow-hidden flex-shrink-0 cursor-pointer"
-              >
-                <div className="relative aspect-[4/5] rounded-lg overflow-hidden border border-border bg-muted">
-                  <Image
-                    src={photo.url}
-                    alt={photo.title}
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    sizes="(max-width: 768px) 250px, 320px"
-                  />
-                </div>
-                <div className="pt-4 pb-2 px-1">
-                  <h3 className="font-semibold text-sm md:text-base mb-1 text-foreground">
-                    {photo.title}
-                  </h3>
-                  <p className="text-xs text-muted font-mono leading-none">
-                    {photo.caption}
-                  </p>
+            {row1Photos.map((photo) => (
+              <div key={photo.title} className="gallery-card flex-shrink-0">
+                <div
+                  style={{ transform: `rotate(${photo.rotate}deg)` }}
+                  className="group w-64 md:w-80 rounded-xl bg-surface border border-border p-4 shadow-md hover:shadow-xl hover:-translate-y-2 transition-all duration-300 relative overflow-hidden cursor-pointer"
+                >
+                  <div className="relative aspect-[4/5] rounded-lg overflow-hidden border border-border bg-muted">
+                    <Image
+                      src={photo.url}
+                      alt={photo.title}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      sizes="(max-width: 768px) 250px, 320px"
+                    />
+                  </div>
+                  <div className="pt-4 pb-2 px-1">
+                    <h3 className="font-semibold text-sm md:text-base mb-1 text-foreground">
+                      {photo.title}
+                    </h3>
+                    <p className="text-xs text-muted font-mono leading-none">
+                      {photo.caption}
+                    </p>
+                  </div>
                 </div>
               </div>
             ))}
@@ -182,28 +219,29 @@ export default function Gallery() {
             ref={row2Ref}
             className="flex gap-6 md:gap-10 px-8 w-max will-change-transform"
           >
-            {row2Photos.map((photo, i) => (
-              <div
-                key={photo.title}
-                style={{ transform: `rotate(${photo.rotate}deg)` }}
-                className="group w-64 md:w-80 rounded-xl bg-surface border border-border p-4 shadow-md hover:shadow-xl hover:-translate-y-2 transition-all duration-300 relative overflow-hidden flex-shrink-0 cursor-pointer"
-              >
-                <div className="relative aspect-[4/5] rounded-lg overflow-hidden border border-border bg-muted">
-                  <Image
-                    src={photo.url}
-                    alt={photo.title}
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    sizes="(max-width: 768px) 250px, 320px"
-                  />
-                </div>
-                <div className="pt-4 pb-2 px-1">
-                  <h3 className="font-semibold text-sm md:text-base mb-1 text-foreground">
-                    {photo.title}
-                  </h3>
-                  <p className="text-xs text-muted font-mono leading-none">
-                    {photo.caption}
-                  </p>
+            {row2Photos.map((photo) => (
+              <div key={photo.title} className="gallery-card flex-shrink-0">
+                <div
+                  style={{ transform: `rotate(${photo.rotate}deg)` }}
+                  className="group w-64 md:w-80 rounded-xl bg-surface border border-border p-4 shadow-md hover:shadow-xl hover:-translate-y-2 transition-all duration-300 relative overflow-hidden cursor-pointer"
+                >
+                  <div className="relative aspect-[4/5] rounded-lg overflow-hidden border border-border bg-muted">
+                    <Image
+                      src={photo.url}
+                      alt={photo.title}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      sizes="(max-width: 768px) 250px, 320px"
+                    />
+                  </div>
+                  <div className="pt-4 pb-2 px-1">
+                    <h3 className="font-semibold text-sm md:text-base mb-1 text-foreground">
+                      {photo.title}
+                    </h3>
+                    <p className="text-xs text-muted font-mono leading-none">
+                      {photo.caption}
+                    </p>
+                  </div>
                 </div>
               </div>
             ))}

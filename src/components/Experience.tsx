@@ -107,7 +107,7 @@ export default function Experience() {
   // Mobile Layout: standard timeline list
   if (!isDesktop) {
     return (
-      <section id="experience" className="section-padding bg-background border-t border-border">
+      <section id="experience" className="section-padding bg-transparent border-t border-border">
         <div className="container-wide max-w-3xl">
           <div className="mb-12">
             <h2 className="text-3xl font-bold tracking-tight">
@@ -153,7 +153,7 @@ export default function Experience() {
 
   // Desktop Layout: GSAP Sticky-Stack list
   return (
-    <section ref={containerRef} id="experience" className="relative bg-background border-t border-border">
+    <section ref={containerRef} id="experience" className="relative bg-transparent border-t border-border">
       {/* Intro Header (Stays static on top of the section or pins) */}
       <div className="container-wide max-w-4xl pt-24 text-center">
         <h2 className="text-4xl md:text-6xl font-bold tracking-tighter">

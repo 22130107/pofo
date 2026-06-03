@@ -6,8 +6,9 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import { ArrowUpRight, GithubLogo, ArrowRight } from "@phosphor-icons/react";
 import { useReducedMotion, motion } from "motion/react";
+import { useGSAP } from "@gsap/react";
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 const projects = [
   {
@@ -71,37 +72,31 @@ export default function Projects() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  useEffect(() => {
+  useGSAP(() => {
     if (reduceMotion || !isDesktop || !containerRef.current || !trackRef.current) return;
 
-    const container = containerRef.current;
     const track = trackRef.current;
+    const trackWidth = track.scrollWidth;
+    const scrollDistance = trackWidth - window.innerWidth;
 
-    const ctx = gsap.context(() => {
-      const trackWidth = track.scrollWidth;
-      const scrollDistance = trackWidth - window.innerWidth;
-
-      gsap.to(track, {
-        x: -scrollDistance,
-        ease: "none",
-        scrollTrigger: {
-          trigger: container,
-          start: "top top",
-          end: () => `+=${scrollDistance}`,
-          pin: true,
-          scrub: 1,
-          invalidateOnRefresh: true,
-        },
-      });
-    }, container);
-
-    return () => ctx.revert();
-  }, [isDesktop, reduceMotion]);
+    gsap.to(track, {
+      x: -scrollDistance,
+      ease: "none",
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: "top top",
+        end: () => `+=${scrollDistance}`,
+        pin: true,
+        scrub: 1,
+        invalidateOnRefresh: true,
+      },
+    });
+  }, { scope: containerRef, dependencies: [isDesktop, reduceMotion], revertOnUpdate: true });
 
   if (!isDesktop) {
     // Mobile Layout: Vertical stack of items
     return (
-      <section id="projects" className="section-padding bg-surface/50 border-t border-border">
+      <section id="projects" className="section-padding bg-transparent border-t border-border">
         <div className="container-wide">
           <div className="mb-12">
             <h2 className="text-3xl font-bold tracking-tight">
@@ -188,7 +183,7 @@ export default function Projects() {
 
   // Desktop Layout: GSAP Horizontal Pan slider
   return (
-    <section ref={containerRef} id="projects" className="relative overflow-hidden bg-background border-y border-border">
+    <section ref={containerRef} id="projects" className="relative overflow-hidden bg-transparent border-y border-border">
       <div ref={trackRef} className="flex h-[100dvh] items-center">
         {/* Intro Slide */}
         <div className="flex-shrink-0 w-[55vw] h-full flex flex-col justify-center px-16 lg:px-24 border-r border-border bg-surface/10 relative">
